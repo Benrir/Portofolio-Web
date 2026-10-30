@@ -1,49 +1,86 @@
-"use client"
-import React from 'react';
-import  {
-    AiOutlineGithub,
-    AiOutlineWhatsApp,
-    AiOutlineLinkedin,
-    AiOutlineMail,
-} from "react-icons/ai"
+"use client";
 
-const About = () => {
-    return(
-        <section id="about">
-            <div className='md:mt-2'>
-            <h1 className='text-center font-bold text-2xl md:text-3xl text-[#3b4878] pb-5'>
-                About Me
-            </h1>
-            <p className='text-center font-light mt-1.5 text-base md:text-lg'>I&apos;m Mario Nursalim, people often called me Mario. I&apos;m an undergraduate student at Bina Nusantara University, 
-            currently in my third year of study Computer Science focusing in Artificial Intelligence with academic record 3.84 GPA.</p>
-            <p className='text-center font-light mt-1.5 text-base md:text-lg pb-2'>My favorite part of programming is the problem-solving aspect. I find immense satisfaction in applying my programming skills to solve an existing problem. Whether it&apos;s creating an AI model and building a web application to solve a problem</p>
-            <p className='text-center font-light mt-1.5 text-base md:text-lg'>My journey into the world of coding began during my time at university. I discovered that web development 
-            and data science are the things I enjoy working on the most. Currently, I am looking forward to opportunities to learn, grow, and hone my abilities in data science and web development. When i&apos;m not coding, i enjoy playing video games, reading manga, and watching anime.</p>
-            </div>
-            <div className="md:mt-4 mt-2 mb-10">
-                <div className="flex flex-row space-x-2 items-center text-center justify-center">
-                    <a href="https://wa.me/+6287873082860" rel="noreferrer" target="_blank">
-                        <AiOutlineWhatsApp
-                            className='hover:animate-bounce transition-transform cursor-pointer text-black'
-                            size={35}
-                        />
-                    </a>
-                    <a href="https://github.com/Benrir" rel="noreferrer" target="_blank">
-                        <AiOutlineGithub
-                            className='hover:animate-bounce transition-transform cursor-pointer text-black'
-                            size={35}
-                        />
-                    </a>
-                    <a href="https://www.linkedin.com/in/mario-nursalim-722a73278/" rel="noreferrer" target="_blank">
-                        <AiOutlineLinkedin
-                            className='hover:animate-bounce transition-transform cursor-pointer text-black'
-                            size={35}
-                        />
-                    </a>
-                </div>
-            </div>
-        </section>
-    )
+import React, { useEffect, useState } from "react";
+
+import Expertise from "./Expertise";
+
+import HobbyCarousel from "./Hobby";
+
+interface Slide {
+  label: string;
+  title: string;
+  body: string;
+  display?: React.ReactNode;
 }
 
-export default About
+const slides: Slide[] = [
+  {
+    label: "Education",
+    title: "Bina Nusantara University",
+    body: "Computer Science graduate with a 3.84 GPA, with a background in AI and Web Development. Took me 3.5 years to finish college",
+  },
+  {
+    label: "What I Do",
+    title: "Mobile & Web Development",
+    body: "I build mobile-first applications, with a focus on creating interfaces that feel intuitive, responsive, and practical to use. My strongest area is mobile development with Flutter, where I work across UI implementation, state management (GetX), API integration, and application architecture. I also build web applications with React and Next.js, bringing the same attention to usability and interaction to the web. While frontend is my main focus, I’m comfortable working beyond the UI — creating APIs, data handling, working with databases, and troubleshooting backend issues when needed",
+  },
+  {
+    label: "Skills",
+    title: "Field Of Expertise",
+    body: "",
+    display: <Expertise />,
+  },
+  {
+    label: "Things I Like",
+    title: "Games, Manga, Music, Art, & Etc.",
+    body: "Things i like to do when im not working or in weekends",
+    display: <HobbyCarousel />,
+  },
+];
+
+const About = () => {
+  return (
+    <section
+      id="about"
+      className="bg-[#0a0a0a] px-6 py-10 text-white sm:px-10 md:py-14"
+    >
+      <div className="mx-auto max-w-[94rem]">
+        <h2 className="text-4xl font-black leading-[0.9] tracking-tight sm:text-5xl">
+          About Me
+        </h2>
+        <div className="pt-4 text-neutral-400 text-justify md:text-left">
+          I&apos;m Mario Nursalim — most people call me Mario or Mar, though a
+          few somehow ended up calling me io (yo). I&apos;m an application
+          developer at PT Mayora Indah Tbk, this is where I spend most of my
+          time building things, solving problems, breaking things, fixing them,
+          and occasionally wondering things. Outside of work, I&apos;m usually
+          doing whatever feels interesting to me at the moment — whether
+          that&apos;s working out, playing games, reading novels, or pixel art.
+        </div>
+
+        {/* List */}
+        <ul className="mt-14">
+          {slides.map((slide) => (
+            <li
+              key={slide.label}
+              className="border-b border-white/10 py-8 first:pt-0 last:border-b-0 last:pb-0"
+            >
+              <p className="text-sm font-medium uppercase tracking-wide text-[#3d6bff]">
+                {slide.label}
+              </p>
+              <h3 className="mt-2 text-2xl font-bold leading-snug sm:text-3xl">
+                {slide.title}
+              </h3>
+              <p className="mt-4 max-w-7xl text-neutral-400 text-justify md:text-left">
+                {slide.body}
+              </p>
+              {slide.display && <div className="mt-6">{slide.display}</div>}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+};
+
+export default About;
