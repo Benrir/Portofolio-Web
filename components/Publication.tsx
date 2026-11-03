@@ -1,7 +1,19 @@
-"use client";
-
 import React from "react";
 import Image from "next/image";
+import {
+  Box,
+  Button,
+  Container,
+  Flex,
+  Grid,
+  Heading,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
+
+import SectionHeader from "./ui/SectionHeader";
+import { CardCorners } from "./ui/Ornaments";
+import { ArrowUpRightIcon } from "./ui/icons";
 
 interface DetailsProps {
   name: string;
@@ -21,71 +33,103 @@ const Details: React.FC<DetailsProps> = ({
   link,
 }) => {
   return (
-    <li className="group grid grid-cols-1 gap-6 border-b border-white/10 py-10 first:pt-0 last:border-b-0 last:pb-0 sm:grid-cols-[180px_1fr]">
-      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-white/5 sm:aspect-square">
-        <Image
-          src={image}
-          alt={name}
-          fill
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-      </div>
-
-      <div className="flex flex-col">
-        <span className="text-sm font-medium uppercase tracking-wide text-[#3d6bff]">
-          {time} · {role}
-        </span>
-
-        <h3 className="mt-2 text-xl font-bold leading-snug text-white sm:text-2xl">
-          {name}
-        </h3>
-
-        <p className="mt-3 max-w-2xl text-neutral-400">{work}</p>
-
-        {link && (
-          <a
-            href={link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-4 inline-flex w-fit items-center gap-2 text-sm font-semibold text-white transition-colors hover:text-[#266CA9]"
-          >
-            Read paper
-            <span
-              aria-hidden
-              className="transition-transform group-hover:translate-x-1"
+    <Grid
+      layerStyle="card"
+      templateColumns={{ base: "1fr", md: "1fr 1fr" }}
+      gap={{ base: "8", md: "12" }}
+      alignItems="center"
+      p={{ base: "5", sm: "8", md: "10" }}
+      overflow="hidden"
+    >
+      <CardCorners inset="16px" />
+      <Stack gap="6" minW="0">
+        <Flex wrap="wrap" gap="2">
+          {[
+            <time key="year" dateTime={time}>
+              {time}
+            </time>,
+            role,
+            "IEEE Xplore",
+          ].map((tag, i) => (
+            <Text
+              as="span"
+              key={i}
+              px="3"
+              py="1"
+              borderRadius="full"
+              borderWidth="1px"
+              borderColor={i === 0 ? "brandLine" : "line"}
+              bg={i === 0 ? "brandSoft" : "whiteAlpha.50"}
+              color={i === 0 ? "brandHi" : "fg2"}
+              fontFamily="label"
+              fontSize="xs"
             >
-              →
-            </span>
-          </a>
+              {tag}
+            </Text>
+          ))}
+        </Flex>
+        <Heading as="h3" size="card" fontSize="3xl">
+          {name}
+        </Heading>
+        <Text>{work}</Text>
+        {link && (
+          <Box>
+            <Button asChild variant="outline">
+              <a href={link} target="_blank" rel="noopener noreferrer">
+                Read the paper on IEEE Xplore
+                <ArrowUpRightIcon aria-hidden="true" />
+              </a>
+            </Button>
+          </Box>
         )}
-      </div>
-    </li>
+      </Stack>
+
+      <Box
+        as="figure"
+        position="relative"
+        p="3"
+        borderRadius="16px"
+        bg="surface2"
+        borderWidth="1px"
+        borderColor="line"
+        transform={{ md: "rotate(1.5deg)" }}
+        boxShadow="0 30px 60px -30px rgba(37, 99, 235, 0.5)"
+      >
+        <Box asChild w="100%" h="auto" borderRadius="inner">
+          <Image
+            src={image}
+            alt="The acceptance notice for the chess piece recognition paper"
+            width={986}
+            height={749}
+            sizes="(min-width: 60rem) 45vw, 100vw"
+          />
+        </Box>
+      </Box>
+    </Grid>
   );
 };
 
 const Publication = () => {
   return (
-    <section
-      id="publications"
-      className="bg-[#0a0a0a] px-6 py-10 text-white sm:px-10 md:py-14"
-    >
-      <div className="mx-auto max-w-[92rem]">
-        <h2 className="text-4xl font-black leading-[0.9] tracking-tight sm:text-5xl">
-          PUBLICATIONS
-        </h2>
-
-        <ul className="mt-14">
-          <Details
-            name="Chess Piece Image Recognition Using Transfer Learning, Simple Neural Network, and Convolutional Neural Network"
-            time="2023"
-            role="Bina Nusantara University"
-            image="/MLPAPER.png"
-            work="Group paper accepted at AIDAS Conference 2023, comparing transfer learning against simple neural network and CNN approaches for classifying chess pieces from images."
-            link="https://ieeexplore.ieee.org/document/10284718"
+    <Box as="section" id="publications" py="var(--section-gap)">
+      <Container>
+        <Box mb={{ base: "10", md: "14" }}>
+          <SectionHeader
+            index="V"
+            label="The Hierophant"
+            title="Publications"
           />
-        </ul>
-      </div>
-    </section>
+        </Box>
+        <Details
+          name="Chess Piece Image Recognition Using Transfer Learning, Simple Neural Network, and Convolutional Neural Network"
+          time="2023"
+          role="Bina Nusantara University"
+          image="/MLPAPER.png"
+          work="Group paper accepted at AIDAS Conference 2023, comparing transfer learning against simple neural network and CNN approaches for classifying chess pieces from images."
+          link="https://ieeexplore.ieee.org/document/10284718"
+        />
+      </Container>
+    </Box>
   );
 };
 

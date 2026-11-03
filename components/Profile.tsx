@@ -1,169 +1,271 @@
-"use client";
 import Image from "next/image";
 
 import React from "react";
-
 import {
-  AiOutlineGithub,
-  AiOutlineLinkedin,
-  AiOutlineWhatsApp,
-} from "react-icons/ai";
+  Box,
+  Container,
+  Flex,
+  Grid,
+  Heading,
+  Link,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 
-import { Link as ScrollLink } from "react-scroll";
+import { Sparkle } from "./ui/Ornaments";
+
+import { GithubIcon, LinkedinIcon, WhatsappIcon } from "./ui/icons";
+
+const socials = [
+  {
+    label: "WhatsApp",
+    href: "https://wa.me/+6287873082860",
+    Icon: WhatsappIcon,
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/mario-nursalim-722a73278/",
+    Icon: LinkedinIcon,
+  },
+  { label: "GitHub", href: "https://github.com/Benrir", Icon: GithubIcon },
+];
+
+// Shared by the top row and the band below it, so their columns line up.
+// The name column is narrow on purpose: the name runs out over the portrait.
+const columns = {
+  base: "minmax(0, 1fr)",
+  md: "minmax(0, 0.75fr) minmax(0, 1.2fr) minmax(0, 1fr)",
+};
+
+// The portrait card's shadow, and the same shadow cast by the name's letters
+const cardShadow =
+  "0 40px 80px -30px rgba(0, 0, 0, 0.85), 0 0 80px -20px rgba(37, 99, 235, 0.45)";
+
+const nameShadow =
+  "0 16px 40px rgba(0, 0, 0, 0.85), 0 0 40px rgba(37, 99, 235, 0.45)";
+
+// The side columns share top and bottom padding, so the name lines up with
+// the quote and the role label lines up with the GitHub row
+const sidePadding = { pt: { md: "16" }, pb: { md: "20" } };
+
+const capsLabel = {
+  fontFamily: "label",
+  fontSize: "sm",
+  fontWeight: "600",
+  letterSpacing: "0.12em",
+  textTransform: "uppercase",
+  lineHeight: "1.5",
+} as const;
+
+// The portrait as card I of the deck: an arched window over a name plate
+const PortraitCard = () => (
+  <Box
+    position="relative"
+    ml={{ base: "auto", md: "-8" }}
+    mr="auto"
+    w="min(100%, 380px)"
+  >
+    {/* A second card tucked behind, offset down and to the right */}
+    <Box
+      aria-hidden="true"
+      position="absolute"
+      inset="0"
+      transform={{
+        base: "translate(14px, 14px)",
+        md: "translate(28px, 28px)",
+      }}
+      borderRadius="999px 999px 22px 22px"
+      backgroundImage="repeating-linear-gradient(45deg, rgba(127, 178, 255, 0.07) 0 1px, transparent 1px 8px), linear-gradient(160deg, rgba(37, 99, 235, 0.45), rgba(11, 18, 33, 0.9) 70%)"
+      boxShadow="0 40px 80px -30px rgba(0, 0, 0, 0.85)"
+    />
+    <Box
+      position="relative"
+      p="2.5"
+      borderRadius="999px 999px 22px 22px"
+      borderWidth="1px"
+      borderColor="brandLine"
+      bg="surface"
+      boxShadow={cardShadow}
+    >
+      <Box
+        position="relative"
+        aspectRatio="3 / 4"
+        overflow="hidden"
+        borderRadius="999px 999px 14px 14px"
+      >
+        <Image
+          src="/pp.jpeg"
+          alt="Mario Nursalim"
+          fill
+          sizes="(min-width: 60rem) 380px, 90vw"
+          style={{ objectFit: "cover", objectPosition: "50% 35%" }}
+          priority
+        />
+        <Box
+          position="absolute"
+          inset="2"
+          borderRadius="999px 999px 10px 10px"
+          borderWidth="1px"
+          borderColor="rgba(234, 240, 253, 0.28)"
+          pointerEvents="none"
+        />
+        <Text
+          position="absolute"
+          top="9"
+          left="50%"
+          transform="translateX(-50%)"
+          fontFamily="label"
+          fontWeight="600"
+          fontSize="lg"
+          color="fg"
+          textShadow="0 2px 12px rgba(0, 0, 0, 0.6)"
+        >
+          I
+        </Text>
+      </Box>
+      <Flex
+        align="center"
+        justify="center"
+        gap="3"
+        pt="4"
+        pb="6"
+        color="brandHi"
+      >
+        <Sparkle size={9} />
+        <Text {...capsLabel} color="fg" letterSpacing="0.22em">
+          The Developer
+        </Text>
+        <Sparkle size={9} />
+      </Flex>
+    </Box>
+
+    <Flex
+      aria-hidden="true"
+      position="absolute"
+      bottom="-7"
+      left="50%"
+      transform="translateX(-50%)"
+      w="14"
+      h="14"
+      align="center"
+      justify="center"
+      borderRadius="full"
+      bg="fg"
+      color="bg"
+      boxShadow="0 0 0 6px {colors.bg}"
+    >
+      <Sparkle size={20} />
+    </Flex>
+  </Box>
+);
 
 const Profile = () => {
   return (
-    <section
-      id="profile"
-      className="relative bg-[#0a0a0a] text-white overflow-hidden px-6 py-32 sm:px-10"
-    >
-      {/* ---------- Mobile / tablet: simple stacked layout ---------- */}
-      <div className="mx-auto flex flex-col items-start gap-8 md:hidden">
-        <h1 className="text-6xl font-black leading-[0.9] tracking-tight">
-          APPLICATION
-        </h1>
-        <p className="text-neutral-400">
-          A software developer who turns ideas into working — and occasionally
-          breaking — apps.
-        </p>
-
-        <div className="relative w-full">
-          <div className="absolute inset-0 translate-x-3 translate-y-3 rounded-2xl bg-[#01082D]" />
-          <div className="relative overflow-hidden rounded-2xl">
-            <Image
-              src="/pp.jpeg"
-              alt="Mario Nursalim"
-              width={600}
-              height={720}
-              className="h-[420px] w-full object-cover"
-              priority
-            />
-            <span className="absolute right-5 top-5 text-sm font-semibold uppercase tracking-wide text-white/70">
-              Developer
-            </span>
-          </div>
-        </div>
-
-        <p className="text-neutral-400">
-          My approach is rooted in clean code and curiosity, turning bugs into
-          learning moments.
-        </p>
-
-        <h2 className="text-6xl font-black leading-[0.9] tracking-tight">
-          MARIO
-        </h2>
-
-        <div className="flex gap-8">
-          <a
-            href="https://wa.me/+6287873082860"
-            rel="noreferrer"
-            target="_blank"
+    <Box as="section" id="profile" position="relative">
+      <Container>
+        <Grid
+          templateColumns={columns}
+          columnGap={{ md: "10" }}
+          rowGap="14"
+          pt={{ base: "12", md: "16" }}
+          pb={{ base: "16", md: "0" }}
+        >
+          {/* Name and role, layered over the portrait */}
+          <Flex
+            position="relative"
+            zIndex="2"
+            direction="column"
+            justify="space-between"
+            gap="10"
+            {...sidePadding}
           >
-            <AiOutlineWhatsApp
-              className="hover:animate-bounce transition-transform cursor-pointer text-white"
-              size={35}
-            />
-          </a>
-          <a href="https://github.com/Benrir" rel="noreferrer" target="_blank">
-            <AiOutlineGithub
-              className="hover:animate-bounce transition-transform cursor-pointer text-white"
-              size={35}
-            />
-          </a>
-          <a
-            href="https://www.linkedin.com/in/mario-nursalim-722a73278/"
-            rel="noreferrer"
-            target="_blank"
-          >
-            <AiOutlineLinkedin
-              className="hover:animate-bounce transition-transform cursor-pointer text-white"
-              size={35}
-            />
-          </a>
-        </div>
-      </div>
-
-      {/* ---------- Desktop: composed hero layout ---------- */}
-      <div className="mx-auto hidden max-w-7xl md:block">
-        <div className="relative min-h-[760px]">
-          {/* Image with orange offset frame — sits behind the headline */}
-          <div className="absolute left-[380px] top-[30px] z-0 w-[500px]">
-            <div className="absolute inset-0 translate-x-5 translate-y-5 rounded-2xl bg-[#01082D]" />
-            <div className="relative overflow-hidden rounded-2xl">
-              <Image
-                src="/pp.jpeg"
-                alt="Mario Nursalim"
-                width={520}
-                height={660}
-                className="h-[660px] w-full object-cover"
-                priority
-              />
-              <span className="absolute right-6 top-6 text-sm font-semibold uppercase tracking-wide text-white/70">
+            <Heading
+              as="h1"
+              size="hero"
+              fontSize={{ base: "hero", md: "clamp(5rem, 7vw, 8.75rem)" }}
+              whiteSpace="nowrap"
+              textShadow={nameShadow}
+            >
+              Mario
+              <br />
+              Nursalim
+            </Heading>
+            <Box>
+              <Text {...capsLabel} color="fg">
+                Application
+                <br />
                 Developer
-              </span>
-            </div>
-          </div>
+              </Text>
+              <Box mt="3" w="10" h="2px" bg="brand" />
+            </Box>
+          </Flex>
 
-          {/* Headline, top-left — layered above the image */}
-          <h1 className="absolute left-0 top-0 z-20 text-7xl font-black leading-[0.9] tracking-tight [text-shadow:8px_8px_0px_#1F357F] lg:text-8xl lg:[text-shadow:10px_10px_0px_#1F357F]">
-            APPLICATION
-          </h1>
+          {/* Card I */}
+          <Box pb={{ md: "16" }}>
+            <PortraitCard />
+          </Box>
 
-          {/* Intro paragraph, under headline */}
-          <p className="absolute left-0 top-[120px] z-20 max-w-[260px] text-neutral-400">
-            A software developer who builds things, sometimes refactor things
-            and then gets curious about why the code broke 🗿 🗿
-          </p>
-
-          {/* Small blurb, right of image */}
-          <p className="absolute right-0 top-[600px] z-20 max-w-[320px] text-neutral-400 text-right">
-            I like figuring out how things work, building things that actually
-            make sense, and turning “why the hell is this broken?” into
-            something I can learn from.
-          </p>
-
-          {/* Name, bottom-right, overlapping the frame */}
-          <h2 className="absolute bottom-0 right-0 z-20 translate-y-1/3 text-7xl font-black leading-[0.9] tracking-tight [text-shadow:8px_8px_0px_#1F357F] lg:text-8xl lg:[text-shadow:10px_10px_0px_#1F357F]">
-            MARIO
-          </h2>
-
-          <div>
-            <div className="absolute bottom-0 left-0 z-20 inline-flex cursor-pointer items-center gap-6 bg-black">
-              <a
-                href="https://wa.me/+6287873082860"
-                rel="noreferrer"
-                target="_blank"
+          {/* Quote and socials */}
+          <Flex
+            direction="column"
+            justify="space-between"
+            gap="10"
+            {...sidePadding}
+          >
+            <Box>
+              <Text
+                aria-hidden="true"
+                fontFamily="heading"
+                fontSize="6xl"
+                lineHeight="0.5"
+                color="brand"
+                mb="2"
               >
-                <AiOutlineWhatsApp
-                  className="hover:animate-bounce transition-transform cursor-pointer text-white"
-                  size={35}
-                />
-              </a>
-              <a
-                href="https://github.com/Benrir"
-                rel="noreferrer"
-                target="_blank"
+                &ldquo;
+              </Text>
+              <Text
+                fontFamily="heading"
+                fontSize="3xl"
+                fontWeight="500"
+                lineHeight="1.1"
+                color="fg"
+                maxW="16ch"
               >
-                <AiOutlineGithub
-                  className="hover:animate-bounce transition-transform cursor-pointer text-white"
-                  size={35}
-                />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/mario-nursalim-722a73278/"
-                rel="noreferrer"
-                target="_blank"
-              >
-                <AiOutlineLinkedin
-                  className="hover:animate-bounce transition-transform cursor-pointer text-white"
-                  size={35}
-                />
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+                I like building things that actually{" "}
+                <Box as="span" color="brandHi" fontStyle="italic">
+                  make sense
+                </Box>
+              </Text>
+            </Box>
+
+            <Stack gap="5" maxW="18rem">
+              <Text {...capsLabel} fontSize="xs" color="fg2">
+                Find me on WhatsApp, LinkedIn and GitHub
+              </Text>
+              <Flex align="center" gap="5">
+                {socials.map(({ label, href, Icon }) => (
+                  <Link
+                    key={label}
+                    href={href}
+                    rel="noreferrer"
+                    target="_blank"
+                    aria-label={label}
+                    color="fg"
+                    fontSize="2xl"
+                    transitionProperty="color"
+                    transitionDuration="short"
+                    _hover={{ color: "brandHi" }}
+                  >
+                    <Icon aria-hidden="true" />
+                  </Link>
+                ))}
+                <Box flex="1" h="1px" bg="lineStrong" />
+              </Flex>
+            </Stack>
+          </Flex>
+        </Grid>
+      </Container>
+    </Box>
   );
 };
 

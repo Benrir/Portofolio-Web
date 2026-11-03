@@ -1,16 +1,21 @@
+"use client";
+
+import { Box } from "@chakra-ui/react";
+
 import Profile from "@/components/Profile";
 import About from "@/components/About";
 import Publication from "@/components/Publication";
-import "@/styles/globals.css";
 import Experience from "@/components/Experience";
+import HobbyCarousel from "@/components/Hobby";
 
 export default function Home() {
   return (
-    <main className="mx-auto bg-[#0a0a0a]">
+    <Box as="main" id="main">
       <Profile />
       <About />
       <Experience />
       <Publication />
-    </main>
+      <HobbyCarousel />
+    </Box>
   );
 }

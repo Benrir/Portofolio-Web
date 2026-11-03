@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-30",
+  "framework": "Next.js 13.5 app router, Tailwind 3, framer-motion, react-scroll, react-icons",
+  "design_md": false,
+  "brand_spec": false,
+  "tokens": "none; literal hex in classes (#0a0a0a bg, #3d6bff accent, #1F357F text-shadow, #01082D frame)",
+  "fonts": "none loaded; browser default sans",
+  "stylesheet": "styles/globals.css (only @tailwind directives)",
+  "sections": ["Navbar", "Profile (hero)", "About (education, what I do, expertise, hobby carousel)", "Experience", "Publication", "Footer"],
+  "material_real": ["name Mario Nursalim", "Application Developer at PT Mayora Indah Tbk, intern Feb 2024 to contract to full-time Apr 2026", "BINUS CS, 3.84 GPA", "Flutter/GetX, React/Next stack list", "IEEE AIDAS 2023 chess-recognition paper", "WhatsApp, GitHub Benrir, LinkedIn links"],
+  "material_pictures": ["public/pp.jpeg portrait", "public/gbf.jpeg, bluelock.jpeg, keyboard.jpeg, aboutyou.jpeg hobby images", "public/MLPAPER.png paper figure"],
+  "material_absent": ["project screenshots (nav links to #projects, which no longer exists)", "testimonials", "metrics"],
+  "known_issues": ["nav 'My Works' scrolls to removed #projects", "Experience uses MLPAPER.png as placeholder for every role", "Hobby copy duplicated/placeholder", "transition-all and width animation in Hobby carousel", "no focus-visible styles", "emoji in nav and hero"]
+}

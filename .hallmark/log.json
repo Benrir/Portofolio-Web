@@ -1,0 +1,33 @@
+[
+ {
+  "mode": "redesign",
+  "depth": "full",
+  "scope": "page",
+  "shape": "Bento Grid",
+  "theme": "darkroom",
+  "axes": "dark/display-condensed/chromatic-amber",
+  "hero": "Ledge",
+  "nav": "edge-aligned",
+  "footer": "colophon block",
+  "imagery": "owner photographs 5, mono, selected plate in colour",
+  "photos": [],
+  "entry": "Experience index",
+  "fingerprint": "dark/condensed/amber/ledge/bento/colophon",
+  "sections": [
+   "Hero (Ledge, portrait)",
+   "Index (Experience)",
+   "Bento (About)",
+   "Split (Publication)",
+   "Grid (Hobby plates)",
+   "Footer (contact rows)"
+  ],
+  "signature": "the portrait printed deep, the name in hairline capitals across its foot",
+  "waived": [
+   "39b"
+  ],
+  "prompt": "personal portfolio of a mobile and web application developer for recruiters",
+  "draw": "b70391",
+  "genre": "atmospheric",
+  "date": "2026-10-30"
+ }
+]
