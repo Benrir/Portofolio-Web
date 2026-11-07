@@ -10,7 +10,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "theme": "chakra typegen theme/system.ts"
+    "theme": "chakra typegen theme/system.ts",
+    "postinstall": "chakra typegen theme/system.ts"
   },
   "dependencies": {
     "@chakra-ui/react": "^3.37.0",
